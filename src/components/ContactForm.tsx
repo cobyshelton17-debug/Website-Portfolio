@@ -4,12 +4,19 @@ type FormValues = {
   name: string
   email: string
   message: string
+  website: string
 }
 
 type FormErrors = Partial<Record<keyof FormValues, string>>
 
-const initialValues: FormValues = { name: '', email: '', message: '' }
-const contactEmail = 'cobyshelton17@gmail.com'
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+
+const initialValues: FormValues = {
+  name: '',
+  email: '',
+  message: '',
+  website: '',
+}
 
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {}
@@ -43,20 +50,45 @@ const inputClass = (hasError: boolean) =>
 function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues)
   const [errors, setErrors] = useState<FormErrors>({})
+  const [status, setStatus] = useState<SubmitStatus>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const isValid = Object.keys(validate(values)).length === 0
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const nextErrors = validate(values)
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) return
 
-    const { name, message } = values
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`)
-    const body = encodeURIComponent(`${message}\n\n— ${name}`)
-    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`
+    setStatus('submitting')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
+
+      const data = (await response.json()) as {
+        ok: boolean
+        message?: string
+      }
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.message ?? 'Something went wrong.')
+      }
+
+      setStatus('success')
+      setValues(initialValues)
+    } catch (error) {
+      setStatus('error')
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Something went wrong.',
+      )
+    }
   }
 
   const setField = (field: keyof FormValues) =>
@@ -64,12 +96,36 @@ function ContactForm() {
       setValues((prev) => ({ ...prev, [field]: event.target.value }))
     }
 
+  const isDisabled = !isValid || status === 'submitting'
+
   return (
     <form
       onSubmit={handleSubmit}
       noValidate
       className="mx-auto mt-10 flex max-w-md flex-col gap-4 text-left"
     >
+      {status === 'success' && (
+        <p className="rounded-lg border border-green-600 bg-green-600/10 px-4 py-3 text-sm text-green-700">
+          Thanks for reaching out — I&apos;ll get back to you soon.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="rounded-lg border border-red-500 bg-red-500/10 px-4 py-3 text-sm text-red-500">
+          {errorMessage}
+        </p>
+      )}
+
+      <input
+        type="text"
+        name="website"
+        value={values.website}
+        onChange={setField('website')}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
       <div>
         <label htmlFor="name" className="mb-1 block text-sm font-medium text-ink">
           Name
@@ -124,10 +180,10 @@ function ContactForm() {
 
       <button
         type="submit"
-        disabled={!isValid}
+        disabled={isDisabled}
         className="btn btn-primary px-6 py-3 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Send Message
+        {status === 'submitting' ? 'Sending…' : 'Send Message'}
       </button>
     </form>
   )

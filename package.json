@@ -14,15 +14,18 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
+    "resend": "^6.28.1",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "@vercel/node": "^13.0.1",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
+    "vercel": "^59.23.2",
     "vite": "^8.3.0"
   }
 }
