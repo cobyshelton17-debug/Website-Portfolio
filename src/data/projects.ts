@@ -1,7 +1,7 @@
-import netflixClone from '../assets/projects/netflix-clone.svg'
-import amazonClone from '../assets/projects/amazon-clone.svg'
-import libraryApp from '../assets/projects/library-app.svg'
-import youtubeClone from '../assets/projects/youtube-clone.svg'
+import netflixClone from '../assets/projects/netflix-clone.png'
+import amazonClone from '../assets/projects/amazon-clone.png'
+import libraryApp from '../assets/projects/summarist-clone.png'
+import youtubeClone from '../assets/projects/youtube-clone.png'
 
 export type Project = {
   title: string
