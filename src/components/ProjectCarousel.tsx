@@ -28,7 +28,7 @@ function ProjectCarousel() {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div ref={sliderRef} className="w-full">
+      <div ref={sliderRef} className="keen-slider w-full">
         {projects.map((project) => (
           <div key={project.title} className="keen-slider__slide">
             <article className="project-card flex h-full flex-col">
