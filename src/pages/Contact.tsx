@@ -5,7 +5,7 @@ function Contact() {
     <section className="page py-12 text-center">
       <h1 className="mb-4 text-4xl text-ink">Contact</h1>
       <p className="mb-8">
-        Have a project in mind or just want to say hi? I&apos;d love to hear
+        Have a project in mind or just want to say hi? I'd love to hear
         from you.
       </p>
       <ContactForm />
