@@ -37,12 +37,12 @@ function Home() {
           <h2 className="mb-10 text-center text-3xl text-ink">About Me</h2>
           <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-6 text-center">
             <img
-              src={aboutImg}
+              src= "IMG_3775.jpg"
               alt="Portrait of Coby Shelton"
               className="about-photo h-[12.5rem] w-[12.5rem] rounded-full object-cover"
             />
             <p>
-              I&apos;m a software developer who enjoys turning ideas into
+              I'm a software developer who enjoys turning ideas into
               polished, working products. I focus on building modern frontends
               and tying them together with clean, maintainable code.
             </p>
