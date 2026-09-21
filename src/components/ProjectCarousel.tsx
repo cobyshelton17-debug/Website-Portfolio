@@ -1,11 +1,10 @@
-import { useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { projects } from '../data/projects'
 
 function ProjectCarousel() {
-  const [details, setDetails] = useState({ rel: 0, maxIdx: 0 })
   const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
     slides: {
       perView: 1,
       spacing: 24,
@@ -17,12 +16,6 @@ function ProjectCarousel() {
       '(min-width: 1024px)': {
         slides: { perView: 3, spacing: 24 },
       },
-    },
-    created(slider) {
-      setDetails(slider.track.details)
-    },
-    slideChanged(slider) {
-      setDetails(slider.track.details)
     },
   })
 
@@ -68,7 +61,6 @@ function ProjectCarousel() {
         <button
           type="button"
           onClick={() => instanceRef.current?.prev()}
-          disabled={details.rel === 0}
           aria-label="Previous projects"
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -90,7 +82,6 @@ function ProjectCarousel() {
         <button
           type="button"
           onClick={() => instanceRef.current?.next()}
-          disabled={details.rel === details.maxIdx}
           aria-label="Next projects"
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
         >
