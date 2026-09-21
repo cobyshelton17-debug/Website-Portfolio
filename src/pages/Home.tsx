@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import ProjectGrid from '../components/ProjectGrid'
+import ProjectCarousel from '../components/ProjectCarousel'
 import Reveal from '../components/Reveal'
 import aboutImg from '../assets/IMG_3775.jpg'
 
@@ -66,7 +66,7 @@ function Home() {
       <section id="projects" className="scroll-mt-8">
         <h2 className="mb-8 text-center text-3xl text-ink">Projects</h2>
         <p className="mb-8 text-center">A few things I&apos;ve built.</p>
-        <ProjectGrid />
+        <ProjectCarousel />
       </section>
     </>
   )
