@@ -2,6 +2,7 @@ import netflixClone from '../assets/projects/netflix-clone.png'
 import amazonClone from '../assets/projects/amazon-clone.png'
 import libraryApp from '../assets/projects/summarist-clone.png'
 import youtubeClone from '../assets/projects/youtube-clone.png'
+import ultraverseClone from '../assets/projects/ultraverse-clone.png'
 
 export type Project = {
   title: string
@@ -44,4 +45,12 @@ export const projects: Project[] = [
     image: youtubeClone,
     link: 'https://youtube-clone-gilt-delta.vercel.app/',
   },
+  {
+    title: 'Ultraverse Clone',
+    description:
+      'A virtual reality platform for immersive experiences and social interaction.',
+    stack: ['React', 'Three.js', 'WebGL'],
+    image: ultraverseClone,
+    link: 'https://coby-internship.vercel.app/',
+  }
 ]
